@@ -19,7 +19,6 @@ export function Header(){
                 <Text style={styles.greeting}>Olá,</Text>
                 <Text style={styles.userName}>Gabriel</Text>
             </View>
-
             <Image source={userImg} style={styles.image} />
         </View>
     )
@@ -33,7 +32,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 20,
         marginTop: getStatusBarHeight(),
-        padding: 20
     },
     greeting: {
         fontSize: 32,
