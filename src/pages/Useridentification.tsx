@@ -7,6 +7,7 @@ import {
     TextInput,
     View,
     KeyboardAvoidingView,
+    Alert,
     Platform
 } from 'react-native';
 import colors from '../styles/colors';
@@ -14,6 +15,7 @@ import fonts from '../styles/fonts';
 
 import { Button } from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function UserIdentification(){
     //isfocused pra saber se o foco esta no input
@@ -21,7 +23,14 @@ export function UserIdentification(){
     const [isFilled, setIsFilled] = useState(false);
     
     const [name, setName] = useState<string>();    const navigation = useNavigation();
-    function handleSubmit(){
+    async function handleSubmit(){
+        if(!name)
+            return Alert.alert('Me diz como chamar você 🥺');
+        
+        //salvando no dispositivo do usuario o nome que ele digitou
+        //passando a key que quero que se chame esse dado para recuperar depois e o valor dele
+        //como esse salvamento nao é na hora, colocamos um async await para garantir esse salvamento antes de eu prosseguir
+        await AsyncStorage.setItem('@plantmanager:user', name);
         navigation.navigate('Confirmation')
     }
 
