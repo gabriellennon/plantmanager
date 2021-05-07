@@ -15,6 +15,7 @@ import { PlantCardPrimary } from '../components/PlantCardPrimary';
 import { Load } from '../components/Loading';
 import api from '../services/api';
 import colors from '../styles/colors';
+import { useNavigation } from '@react-navigation/core';
 
 //tipando o que vai vir de dentro da api
 interface EnviromentProps {
@@ -45,6 +46,8 @@ export function PlantSelect(){
     //lidando com a paginacao
     const [page, setPage] = useState(1);
     const [loadingMore, setLoadingMore] = useState(false);
+
+    const navigation = useNavigation();
 
     function handleEnviromentSelected(environment: string){
         setEnviromentSelected(environment);
@@ -89,6 +92,11 @@ export function PlantSelect(){
         setPage(oldValue => oldValue + 1);
         fetchPlants();
         
+    }
+
+    function handlePlantSelect(plant: PlantProps){
+        //alem de chamar a tela plant save, estamos passando os dados das plantas
+        navigation.navigate('PlantSave', { plant });
     }
 
     //na hora que a tela é montada ele é carregado antes da tela
@@ -155,6 +163,7 @@ export function PlantSelect(){
                     renderItem={({ item }) => (
                         <PlantCardPrimary 
                             data={item}  
+                            onPress={() => handlePlantSelect(item)}
                         />
                     )}
                     showsVerticalScrollIndicator={false}
