@@ -27,11 +27,16 @@ export function UserIdentification(){
         if(!name)
             return Alert.alert('Me diz como chamar você 🥺');
         
-        //salvando no dispositivo do usuario o nome que ele digitou
-        //passando a key que quero que se chame esse dado para recuperar depois e o valor dele
-        //como esse salvamento nao é na hora, colocamos um async await para garantir esse salvamento antes de eu prosseguir
-        await AsyncStorage.setItem('@plantmanager:user', name);
-        navigation.navigate('Confirmation')
+        try {
+            //salvando no dispositivo do usuario o nome que ele digitou
+            //passando a key que quero que se chame esse dado para recuperar depois e o valor dele
+            //como esse salvamento nao é na hora, colocamos um async await para garantir esse salvamento antes de eu prosseguir
+            await AsyncStorage.setItem('@plantmanager:user', name);
+            navigation.navigate('Confirmation')
+            
+        } catch {
+            Alert.alert('Não foi possível salvar o seu nome 😢');
+        }
     }
 
     function handleInputBlur(){

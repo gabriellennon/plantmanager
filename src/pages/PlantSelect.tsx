@@ -16,23 +16,12 @@ import { Load } from '../components/Loading';
 import api from '../services/api';
 import colors from '../styles/colors';
 import { useNavigation } from '@react-navigation/core';
+import { PlantProps } from '../libs/storage';
 
 //tipando o que vai vir de dentro da api
 interface EnviromentProps {
     key: string,
     title: string
-}
-interface PlantProps {
-    id: string;
-    name: string;
-    about: string;
-    water_tips: string;
-    photo: string;
-    environments: [string];
-    frequency: {
-      times: number;
-      repeat_every: string;
-    }
 }
 
 export function PlantSelect(){

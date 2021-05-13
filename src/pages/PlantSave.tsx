@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Alert,
     StyleSheet,
@@ -21,20 +21,10 @@ import waterdrop from '../assets/waterdrop.png';
 import { Button } from '../components/Button';
 import colors from '../styles/colors';
 import { format, isBefore } from 'date-fns';
+import { loadPlant, PlantProps, savePlant } from '../libs/storage';
 
 interface Params {
-    plant: {
-    id: string;
-    name: string;
-    about: string;
-    water_tips: string;
-    photo: string;
-    environments: [string];
-    frequency: {
-      times: number;
-      repeat_every: string;
-    }
-    }
+    plant: PlantProps
 }
 
 export function PlantSave(){
@@ -62,6 +52,20 @@ export function PlantSave(){
 
     function handleOpenDatetimePickerForAndroid(){
         setShowDatePicker(oldState => !oldState)
+    }
+
+
+    async function handleSave(){
+        try {
+            await savePlant({
+                ...plant,
+                dateTimeNotification: selectedDateTime
+            });
+
+
+        } catch (error) {
+            Alert.alert('Não foi possível salvar. 😢');
+        }
     }
 
     return(
@@ -119,7 +123,7 @@ export function PlantSave(){
 
                 <Button 
                     title="Cadastrar planta"
-                    onPress={() => {}}
+                    onPress={handleSave}
                 />
             </View>
         </View>
